@@ -2,15 +2,15 @@
 
 COUNTER=0; #counter increments every time button is pressed
 
-pinVal=$( gpio read 5 ); #here  we read the button and save the value
+pinValue=$( gpio read 5 ); #here  we read the button and save the value
 
 	until [ $COUNTER -eq 16 ]
 	do
 		#sleep .5s;
-		pinVal=$( gpio read 5 ); #here  we read the button and save the value
+		pinValue=$( gpio read 5 ); #here  we read the button and save the value
 		sleep .1s;
 
-		if [ $pinVal -eq 0 ]
+		if [ $pinValue -eq 0 ]
 		then
 			./initMode.sh			
 			((COUNTER++));

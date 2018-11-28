@@ -1,15 +1,16 @@
 #!/bin/bash
 
 COUNTER=0; 
+last = 1;
 
-pinValue=$( gpio read 5 ); 
+pin=$( gpio read 5 ); 
 
 	until [ $COUNTER -eq 16 ]
 	do
-		pinValue=$( gpio read 5 ); 
+		pin=$( gpio read 5 ); 
 		sleep .1s;
 
-		if [ $pinValue -eq 0 ]
+		if [ $pin -eq 0 ]
 		then
 			./initMode.sh			
 			((COUNTER++));

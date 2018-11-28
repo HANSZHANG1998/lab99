@@ -1,33 +1,31 @@
 #!/bin/bash
 
-COUNTER=0; 
-last = 1;
+count=0
+last=1
 
-pin=$( gpio read 5 ); 
-
-	until [ $COUNTER -eq 16 ]
-	do
-	let "pin=$(gpio read 5)"
-	if [ $pin == $last ]; then
+while((1))
+do
+	let "now=$(gpio read 5)"
+	if [ $now == $last ]; then
 		sleep 0.01s
 	else
-		if [ $pin == 1 ]; then
-			let "last=$pin"
+		if [ $now == 1 ]; then
+			let "last=$now"
 		else
 			((count++))
 			./setbits.sh $count
 			echo "button pressed $count times"
-			let "last=$pin"
+			let "last=$now"
 		fi
 	fi
-		
-	done
+	
+	if [ $count == 16 ]; then
+		gpio write 4 1
+		echo "number too big"
+		sleep 1s
+		gpio write 4 0
+		count=0
+		echo "reset number to 0"
+	fi
+done
 
-		if [ $COUNTER -eq 16 ]
-		then	
-			echo BUZZER
-			gpio write 4 1;
-			sleep 1s;
-			gpio write 4 0; 
-
-		fi		

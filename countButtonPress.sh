@@ -13,7 +13,7 @@ do
 	./waitForButtonPress.sh
 	echo "$count"
         ./setbits.sh "$count"
-
+  echo "waiting for button press"
         if [ "$count" -eq 16 ]
         then
             a=count

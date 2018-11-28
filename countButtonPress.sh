@@ -7,17 +7,19 @@ pin=$( gpio read 5 );
 
 	until [ $COUNTER -eq 16 ]
 	do
-		pin=$( gpio read 5 ); 
-		sleep .1s;
-
-		if [ $pin -eq 0 ]
-		then
-			./initMode.sh			
-			((COUNTER++));
-			sleep .1s;			
-			echo number is $COUNTER
-			./setbits.sh $COUNTER;
+	let "pin=$(gpio read 5)"
+	if [ $pin == $last ]; then
+		sleep 0.01s
+	else
+		if [ $pin == 1 ]; then
+			let "last=$pin"
+		else
+			((count++))
+			./setbits.sh $count
+			echo "button pressed $count times"
+			let "last=$pin"
 		fi
+	fi
 		
 	done
 

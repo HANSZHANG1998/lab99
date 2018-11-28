@@ -16,7 +16,7 @@ do
   echo "waiting for button press"
         if [ "$count" -eq 16 ]
         then
-            a=count
+            count=0
         fi
 
         if [ "$count" -eq 0 ]
